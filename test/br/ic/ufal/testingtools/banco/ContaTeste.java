@@ -60,13 +60,6 @@ public class ContaTeste {
 		assertEquals(2141, conta.saldo());
 		assertEquals(200, conta.credito());
 	}
-	
-	@Test
-	public void testePagarConta1() {
-		conta.pagarConta(0);
-		assertEquals(2200, conta.saldo());
-		assertEquals(200, conta.credito());
-	}
 
 	@Test
 	public void testePagarContaComCredito() {
@@ -86,35 +79,11 @@ public class ContaTeste {
 	}
 	
 	@Test
-	public void testePagarContaBoundary() { // com saldo
-		conta.pagarConta(2199);
-		assertEquals(1, conta.saldo());
-		assertEquals(200, conta.credito());
-	}
-	
-	@Test
-	public void testePagarContaBoundaryEquals() {
+	public void testePagarContaBoundary() { 
+		conta = new Conta(ContaTeste.nome, 2200, -1);
 		conta.pagarConta(2200);
 		assertEquals(0, conta.saldo());
-		assertEquals(200, conta.credito());
-	}
-	
-	@Test
-	public void testePagarContaUpBoundary() { // com credito
-		conta.pagarConta(2201);
-		assertEquals(0, conta.saldo());
-		assertEquals(199, conta.credito());
-	}
-	
-	@Test
-	public void testePagarContaCreditoUpBoundary() { // com exceção
-		try {
-			conta.pagarConta(2401);
-			fail("teste falhou");
-		} catch (SaldoNaoSuficienteException e) {
-			assertEquals(2200, conta.saldo());
-			assertEquals(200, conta.credito());
-		}
+		assertEquals(-1, conta.credito());
 	}
 	
 	@Test
@@ -166,11 +135,5 @@ public class ContaTeste {
 	public void testePagarContaNumerosNeg() {
 		conta.pagarConta(-1256);
 		assertEquals(2200, conta.saldo()); // Pagar Conta não deveria aceitar aceitar numeros negativo
-	}
-
-	@Test
-	public void testeImprimeDados() {
-		conta.imprimeDados();
-		assertTrue(true);
 	}
 }
